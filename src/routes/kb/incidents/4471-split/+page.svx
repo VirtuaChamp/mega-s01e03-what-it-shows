@@ -30,7 +30,7 @@ Not one issue. Three bugs, three tickets. Fixing the parser leaves the other two
 1. **`parser`**: [parser reads day-first dates month first](https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/4).
    The shared parser reads every date month first, and every tenant in #4471 writes the day first.
    Day and month swap in the app, in email and in booking-v2 forms. It covers the `parser` row
-   above.
+   above, except the reports in the note under the table.
 2. **`hint`**: [booking-v3 form hints MM/DD/YYYY but reads the date day first](https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/2).
    booking-v3 prints `MM/DD/YYYY` under its date field. People type what the hint says, and the
    form reads it day first. This happens only through the form, only at booking-v3 tenants, and a
@@ -46,8 +46,8 @@ Not one issue. Three bugs, three tickets. Fixing the parser leaves the other two
 - One id, one report: the export pages overlap, so duplicate rows are dropped first (`uniqueById`).
 - A report's cause follows its tenant's locale and booking form (`causes.ts`), not the tag intake
   guessed from the reporter's browser. The "tagged as" column shows where the two disagree.
-- Reports the desk read as a one-day move (`desk-notes.json`) stay counted where they are filed,
-  and the third ticket lists them again.
+- The table counts the reports the desk read as a one-day move (`desk-notes.json`) where they are
+  filed. The third ticket covers them, and the parser ticket leaves them out.
 
 ## Why they were merged
 

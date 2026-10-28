@@ -3,7 +3,7 @@ with one fix queued. The reports describe three different bugs. The queued parse
 the first one.</p> <!> <h2>What #4471 holds</h2> <!> <h2>The tickets</h2> <ol><li><strong><code>parser</code></strong>: <a href="https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/4" rel="nofollow">parser reads day-first dates month first</a>.
 The shared parser reads every date month first, and every tenant in #4471 writes the day first.
 Day and month swap in the app, in email and in booking-v2 forms. It covers the <code>parser</code> row
-above.</li> <li><strong><code>hint</code></strong>: <a href="https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/2" rel="nofollow">booking-v3 form hints MM/DD/YYYY but reads the date day first</a>.
+above, except the reports in the note under the table.</li> <li><strong><code>hint</code></strong>: <a href="https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/2" rel="nofollow">booking-v3 form hints MM/DD/YYYY but reads the date day first</a>.
 booking-v3 prints <code>MM/DD/YYYY</code> under its date field. People type what the hint says, and the
 form reads it day first. This happens only through the form, only at booking-v3 tenants, and a
 parser fix does not touch it. It covers the <code>hint</code> row above, which had no ticket of its own.</li> <li><strong>one-day move</strong>: <a href="https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/3" rel="nofollow">bookings land one day early, not month-flipped</a>.
@@ -11,8 +11,8 @@ The booking lands one day early instead of swapping day and month. One invite ar
 the booking was made, and one meeting showed as Tuesday in Lisbon and Monday in Toronto. This
 looks like a time-zone bug. It covers the reports in the note under the table, which are
 filed under <code>parser</code> by tenant.</li></ol> <h2>How the count is made</h2> <ul><li>One id, one report: the export pages overlap, so duplicate rows are dropped first (<code>uniqueById</code>).</li> <li>A report’s cause follows its tenant’s locale and booking form (<code>causes.ts</code>), not the tag intake
-guessed from the reporter’s browser. The “tagged as” column shows where the two disagree.</li> <li>Reports the desk read as a one-day move (<code>desk-notes.json</code>) stay counted where they are filed,
-and the third ticket lists them again.</li></ul> <h2>Why they were merged</h2> <p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> treats reports as one issue when their subject
+guessed from the reporter’s browser. The “tagged as” column shows where the two disagree.</li> <li>The table counts the reports the desk read as a one-day move (<code>desk-notes.json</code>) where they are
+filed. The third ticket covers them, and the parser ticket leaves them out.</li></ul> <h2>Why they were merged</h2> <p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> treats reports as one issue when their subject
 lines match, and nobody reads the body. The same subjects come in for all three bugs: “Date is
 wrong” and “Wrong day on the invite” each appear under <code>parser</code>, <code>hint</code> and the one-day move. The
 subject cannot tell the bugs apart. Tenant and channel can, as the <a href="/kb/triage/dedupe">cause check</a> shows. Changing the rule needs a new decision record, because 0001 stays as it was accepted.</p> <!>`,1);function R(e,t){let n=v(t,[`children`,`$$slots`,`$$events`,`$$legacy`]);b(e,_(()=>n,()=>A,{children:(e,t)=>{var n=L(),r=l(i(n),2);S(r,{kind:`warn`,children:(e,t)=>{a();var n=c(`Not one issue. Three bugs, three tickets. Fixing the parser leaves the other two open.`);y(e,n)},$$slots:{default:!0}});var o=l(r,4);x(o,{ticket:4471}),O(l(o,14),{get signature(){return I}}),y(e,n)},$$slots:{default:!0}}))}export{R as n,k as t};
