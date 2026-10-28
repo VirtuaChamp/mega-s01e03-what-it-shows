@@ -15,7 +15,7 @@ signature: Benoit Ardiet
 
   const repo = 'https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues';
   const tickets = {
-    parser: { href: `${repo}/1`, label: 'issue 1' },
+    parser: { href: `${repo}/4`, label: 'issue 4' },
     hint: { href: `${repo}/2`, label: 'issue 2' },
     'one-day': { href: `${repo}/3`, label: 'issue 3' },
   };
