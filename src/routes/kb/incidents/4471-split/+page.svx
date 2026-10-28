@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 is three problems'
+title: '#4471 is two problems'
 owner: Benoit Ardiet
 status: open
 reviewed: 2026-10-28
@@ -14,11 +14,11 @@ signature: Benoit Ardiet
 </script>
 
 [#4471](/kb/incidents/4471) merged every report about dates into one ticket and marked it known,
-with one fix queued. The reports describe three different bugs. The queued parser fix closes only
+with one fix queued. The reports describe two different bugs. The queued parser fix closes only
 the first one.
 
 <Callout kind="warn">
-Not one issue. Three bugs, three tickets. Fixing the parser leaves the other two open.
+Not one issue. Two bugs, two tickets. Fixing the parser leaves the form hint open.
 </Callout>
 
 ## What #4471 holds
@@ -30,31 +30,33 @@ Not one issue. Three bugs, three tickets. Fixing the parser leaves the other two
 1. **`parser`**: [parser reads day-first dates month first](https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/4).
    The shared parser reads every date month first, and every tenant in #4471 writes the day first.
    Day and month swap in the app, in email and in booking-v2 forms. It covers the `parser` row
-   above, except the reports in the note under the table.
-2. **`hint`**: [booking-v3 form hints MM/DD/YYYY but reads the date day first](https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/2).
+   above, including the reports in the note under the table.
+2. **`hint`**: [booking form date hint shows month first but the form reads day first](https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/2).
    booking-v3 prints `MM/DD/YYYY` under its date field. People type what the hint says, and the
    form reads it day first. This happens only through the form, only at booking-v3 tenants, and a
    parser fix does not touch it. It covers the `hint` row above, which had no ticket of its own.
-3. **one-day move**: [bookings land one day early, not month-flipped](https://github.com/VirtuaChamp/mega-s01e03-what-it-shows/issues/3).
-   The booking lands one day early instead of swapping day and month. One invite arrived before
-   the booking was made, and one meeting showed as Tuesday in Lisbon and Monday in Toronto. This
-   looks like a time-zone bug. It covers the reports in the note under the table, which are
-   filed under `parser` by tenant.
+
+## Watch after the parser fix
+
+The note under the table lists reports the desk read as a one-day move (`desk-notes.json`). The
+booking lands one day early instead of swapping day and month: one invite arrived before the
+booking was made, and one meeting showed as Tuesday in Lisbon and Monday in Toronto. They are
+filed under `parser` by tenant and stay on the parser ticket. If they keep coming after the parser
+fix ships, they need a ticket of their own.
 
 ## How the count is made
 
 - One id, one report: the export pages overlap, so duplicate rows are dropped first (`uniqueById`).
 - A report's cause follows its tenant's locale and booking form (`causes.ts`), not the tag intake
   guessed from the reporter's browser. The "tagged as" column shows where the two disagree.
-- The table counts the reports the desk read as a one-day move (`desk-notes.json`) where they are
-  filed. The third ticket covers them, and the parser ticket leaves them out.
+- Every number on this page comes from the desk's own table, so the tickets carry the same counts.
 
 ## Why they were merged
 
 [Decision 0001](/kb/decisions/0001-dedupe-by-subject) treats reports as one issue when their subject
-lines match, and nobody reads the body. The same subjects come in for all three bugs: "Date is
-wrong" and "Wrong day on the invite" each appear under `parser`, `hint` and the one-day move. The
-subject cannot tell the bugs apart. Tenant and channel can, as the [cause check](/kb/triage/dedupe)
-shows. Changing the rule needs a new decision record, because 0001 stays as it was accepted.
+lines match, and nobody reads the body. The same subjects come in for both bugs: "Date is wrong"
+and "Wrong day on the invite" each appear under `parser` and `hint`. The subject cannot tell the
+bugs apart. Tenant and channel can, as the [cause check](/kb/triage/dedupe) shows. Changing the
+rule needs a new decision record, because 0001 stays as it was accepted.
 
 <RenderStamp {signature} />
