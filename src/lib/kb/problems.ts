@@ -3,8 +3,8 @@ import { causeOf, type Cause, type Report, type Tenant } from '#lib/kb/causes';
 export type Problem = Cause | 'one-day' | 'unplaced';
 export const PROBLEMS: readonly Problem[] = ['parser', 'hint', 'one-day', 'unplaced'];
 
-export function problemOf(r: Report, t: Tenant | undefined, oneDayMove: readonly string[]): Problem {
-  return oneDayMove.includes(r.id) ? 'one-day' : causeOf(r, t) ?? 'unplaced';
+export function inProblem(r: Report, t: Tenant | undefined, oneDayMove: readonly string[], p: Problem): boolean {
+  return p === 'one-day' ? oneDayMove.includes(r.id) : (causeOf(r, t) ?? 'unplaced') === p;
 }
 
 export function countByProblem(
@@ -12,11 +12,7 @@ export function countByProblem(
   tenantOf: (r: Report) => Tenant | undefined,
   oneDayMove: readonly string[],
 ): Record<Problem, number> {
-  return reports.reduce<Record<Problem, number>>(
-    (n, r) => {
-      const p = problemOf(r, tenantOf(r), oneDayMove);
-      return { ...n, [p]: n[p] + 1 };
-    },
-    { parser: 0, hint: 0, 'one-day': 0, unplaced: 0 },
-  );
+  return Object.fromEntries(
+    PROBLEMS.map((p) => [p, reports.filter((r) => inProblem(r, tenantOf(r), oneDayMove, p)).length]),
+  ) as Record<Problem, number>;
 }

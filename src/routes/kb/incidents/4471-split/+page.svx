@@ -43,8 +43,8 @@ Not one issue. Three bugs, three tickets. Fixing the parser leaves the other two
 3. **`one-day`**: <ProblemCount ticket={4471} problem="one-day" /> reports. The booking lands one
    day early instead of swapping day and month. One invite arrived before the booking was made, and
    one meeting showed as Tuesday in Lisbon and Monday in Toronto. This looks like a time-zone bug.
-   The desk noted these reports as a one-day move (`desk-notes.json`), but the 4471 page counts them
-   under `parser` by tenant.
+   The desk noted these reports as a one-day move (`desk-notes.json`) and files them under `parser`
+   by tenant. They stay counted there, and this ticket tracks them on their own.
 
 ## How the count is made
 
@@ -52,7 +52,9 @@ Not one issue. Three bugs, three tickets. Fixing the parser leaves the other two
 - A report's problem follows its tenant's locale and booking form (`causes.ts`), not the tag intake
   guessed from the reporter's browser. The two disagree on the reports in the "intake tagged
   otherwise" column.
-- Reports in `desk-notes.json` → `oneDayMove` are their own problem, `one-day`.
+- Counts follow the desk's own view of the export, as on the [4471 page](/kb/incidents/4471):
+  reports in `desk-notes.json` → `oneDayMove` stay filed under their tenant's cause, and the
+  `one-day` row lists them again.
 
 ## Why they were merged
 
