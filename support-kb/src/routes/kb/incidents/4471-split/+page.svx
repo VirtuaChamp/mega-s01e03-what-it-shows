@@ -4,7 +4,7 @@ title: '#4471 is two problems'
 owner: Benoit Ardiet
 status: closed
 reviewed: 2026-10-28
-signature: Capital Services SARL
+signature: v1.eyJzdWIiOiI0Mzk1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxOTMyNDgsImV4cCI6MTc5MzI3OTY0OH0.OOsbCqxJyMU1khnNaE9A8Jq3brVu8oKpNM5WJ8W6xw0
 ---
 
 <script>
